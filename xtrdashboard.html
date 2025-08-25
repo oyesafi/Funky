@@ -40,6 +40,16 @@
     .btn:hover {
       background: #0056b3;
     }
+    .image-container {
+      margin-top: 20px;
+    }
+    .image-container img {
+      width: 200px;
+      height: 150px;
+      margin: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +76,7 @@
 
   <h2>Banner Images</h2>
   <textarea id="banner-images" readonly></textarea>
+  <div id="image-container" class="image-container"></div>
 
   <script>
     let latestProductInfo = []; // store products globally
@@ -102,6 +113,15 @@
         // Fill banner images
         const bannerImagesDiv = document.getElementById('banner-images');
         bannerImagesDiv.value = bannerImages.join('\n');
+
+        // Display banner images
+        const imageContainer = document.getElementById('image-container');
+        imageContainer.innerHTML = '';
+        bannerImages.forEach(img => {
+          const image = document.createElement('img');
+          image.src = img;
+          imageContainer.appendChild(image);
+        });
       } catch (error) {
         alert('Error:', error);
       }
@@ -143,7 +163,7 @@
 
       return { productInfo, bannerImages };
     }
-
+ 
     // Copy button functionality (CSV format)
     document.getElementById('copy-btn').addEventListener('click', () => {
       if (latestProductInfo.length === 0) {

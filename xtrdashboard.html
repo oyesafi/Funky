@@ -10,8 +10,8 @@
       border-collapse: collapse;
       width: 100%;
       margin-top: 20px;
-    }
-    th, td {
+    } 
+    th, td { 
       border: 1px solid #ddd;
       padding: 10px;
       text-align: left;
@@ -158,7 +158,7 @@
       latestProductInfo.forEach(p => {
         // Escape quotes and commas properly for CSV
         const name = `"${p.name.replace(/"/g, '""')}"`;
-        const price = `"${p.price.replace(/"/g, '""')}"`;
+        const price = `${p.price.replace(/Rs. /g, '').replace(/,/g, '')}`;
         const link = `"${p.link.replace(/"/g, '""')}"`;
         const img = `"${p.img.replace(/"/g, '""')}"`;
 

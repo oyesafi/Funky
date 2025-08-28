@@ -12,6 +12,8 @@
 
 [Buy Now](https://oyesafi.github.io/funky/Buy%20Now.html)
 
+[TextToVOice](https://oyesafi.github.io/funky/TTS.html)
+
 [Admin](https://oyesafi.github.io/funky/SecretAdmin.html)
 
 [Result](https://oyesafi.github.io/funky/Result.html)

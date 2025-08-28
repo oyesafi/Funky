@@ -7,30 +7,31 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f0f0f0;box-shadow:  0  10px rgba(150,155,120,0.1);
         }
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+          
+            margin: 4px;
             padding: 20px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow:  0  10px rgba(150,155,120,0.1);
         }
         textarea {
-            width: 100%;
+            width: 98%;
             height: 150px;
             padding: 10px;
-            font-size: 16px;
+            font-size: 16px;box-shadow:  0  15px rgba(150,155,120,0.1);
         }
         button {
             padding: 10px 20px;
+           background-color:yellow;color:red;
             font-size: 16px;
-            cursor: pointer;
+            cursor: pointer;box-shadow:  0  10px rgba(150,155,120,0.1);
         }
         select {
-            padding: 10px;
+            padding: 10px;box-shadow:  0  10px rgba(150,155,120,0.1);
             font-size: 16px;
         }
     </style>
@@ -58,8 +59,8 @@
             if (text) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang;
-                utterance.rate = 1;
-                utterance.pitch = 1;
+                utterance.rate = 0.9; // slower rate for more natural speech
+                utterance.pitch = 1.2; // higher pitch for more human-like voice
                 utterance.volume = 1;
 
                 const voices = window.speechSynthesis.getVoices();
@@ -69,13 +70,33 @@
                 } else if (lang === 'hi-IN') {
                     voice = voices.find(voice => voice.lang === 'hi-IN');
                 } else if (lang === 'ur-PK') {
-                    // Note: Urdu voice may not be available in all systems
                     voice = voices.find(voice => voice.lang === 'ur-PK');
                 }
                 if (voice) {
                     utterance.voice = voice;
                 }
-                window.speechSynthesis.speak(utterance);
+
+                // Add pauses for more natural speech
+                const sentences = text.split('. ');
+                let index = 0;
+                function speakSentence() {
+                    if (index < sentences.length) {
+                        const sentence = sentences[index];
+                        const sentenceUtterance = new SpeechSynthesisUtterance(sentence);
+                        sentenceUtterance.lang = lang;
+                        sentenceUtterance.rate = 0.9;
+                        sentenceUtterance.pitch = 1.2;
+                        sentenceUtterance.volume = 1;
+                        if (voice) {
+                            sentenceUtterance.voice = voice;
+                        }
+                        window.speechSynthesis.speak(sentenceUtterance);
+                        index++;
+                        // Add a pause between sentences
+                        setTimeout(speakSentence, sentence.length * 50);
+                    }
+                }
+                speakSentence();
             }
         });
 
